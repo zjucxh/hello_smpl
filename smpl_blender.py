@@ -11,7 +11,7 @@ def create_smpl():
 
 
 
-def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/BMLrub"):
+def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/BMLrub_mini"):
     for root, dirs, files in os.walk(cmu_dir):
         for file in files:
             if file.endswith(".npz") and not file.startswith('neutral'):
