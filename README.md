@@ -10,6 +10,7 @@ Modified smpl blender plugin __init__.py in blender script folder
 
 For ERROR: No key block for Shape010, 011, 012, ..., 015:
 Dimension of Legacy version of SMPL is 10 not 15, so error can be ignored.
+when read factory.blend blender should run in background otherwise error occurs
 ## Install
 
 Add smpl_blender addon 
