@@ -1,7 +1,6 @@
 import os
 import bpy
 import numpy as np
-import pickle as pkl
 
 def create_smpl():
     bpy.data.window_managers["WinMan"].smplx_tool.smplx_gender = 'female'
@@ -21,6 +20,7 @@ def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"):
                 #bpy.ops.object.select_all(action='SELECT')
                 #bpy.ops.object.delete(use_global=True)
                 #bpy.ops.wm.read_factory_settings()
+                # Comment out the following line to run blender in background mode to avoid memory leak
                 #bpy.ops.wm.read_homefile(filepath='assets/factory.blend')
 
                 #bpy.ops.object.delete()
