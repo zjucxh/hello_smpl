@@ -19,4 +19,5 @@ Modify blender python  path
 run blender -P smpl_blender.py  
 to run in background add -b option
 
-
+## TODO
+Fit garment to SMPL standard model via blender or Marvelous Designer or CLO3D
