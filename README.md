@@ -16,6 +16,7 @@ when read factory.blend blender should run in background otherwise error occurs
 Add smpl_blender addon 
 Add blender to PATH
 Modify blender python  path 
+Copy factory.blend from /home/cxh/mnt/cxh/Documents/assets/ to assets
 run blender -P smpl_blender.py  
 to run in background add -b option
 
