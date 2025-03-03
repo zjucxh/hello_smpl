@@ -17,15 +17,59 @@ def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"):
 
                 npz_file = os.path.join(root, file)
                 # Delect all objects
-                #bpy.ops.object.select_all(action='SELECT')
-                #bpy.ops.object.delete(use_global=True)
+                bpy.ops.object.select_all(action='SELECT')
+                bpy.ops.object.delete(use_global=True)
                 #bpy.ops.wm.read_factory_settings()
                 # Comment out the following line to run blender in background mode to avoid memory leak
                 #bpy.ops.wm.read_homefile(filepath='assets/factory.blend')
 
                 #bpy.ops.object.delete()
                 print(f'loading {npz_file}')
+                # Scale up avatar 40 times for better cloth simulation results
+
                 bpy.ops.object.smplx_add_animation(filepath=os.path.join(root, file))
+                #for object in bpy.data.collections["Collection"].all_objects:
+                    #object.scale = (40,40,40)
+                for object in bpy.context.scene.objects:
+                    print(f' object name : {object.name}')
+                    # if object name start from SMPLX-female or SMPLX-male, then scale it
+                    if object.name.startswith('SMPLX-female') or object.name.startswith('SMPLX-male'):
+                        object.scale = (40,40,40)
+                #bpy.ops.object.select_all(action='SELECT')
+                for obj in bpy.context.scene.objects:
+                    print(f' obj type : {obj.type}')
+                    if obj.type == 'MESH':
+                        # Add collision modifier
+                        obj.select_set(True)
+                        bpy.ops.object.modifier_add(type='COLLISION')
+                        obj.select_set(False)
+
+                # Add garment template
+                bpy.ops.wm.obj_import(filepath='assets/template.obj')
+
+                # Add cloth simulation
+                bpy.ops.object.select_all(action='DESELECT')
+                bpy.data.objects['tshirt'].select_set(True)
+                # Add cloth and collision modifier
+                bpy.ops.object.modifier_add(type='CLOTH')
+                bpy.ops.object.modifier_add(type='COLLISION')
+                # Set cloth simulation properties
+                bpy.context.object.modifiers["Cloth"].collision_settings.collision_quality = 8
+
+
+                # export obj file sequences
+                #bpy.context.scene.frame_start = 1
+                #bpy.context.scene.frame_end = 250
+                #bpy.context.scene.frame_step = 1
+                #bpy.context.scene.frame_current = 1
+                #bpy.context.scene.frame_set(1)
+                bpy.ops.object.select_all(action='DESELECT')
+                bpy.data.objects['tshirt'].select_set(True)
+                # TODO modify file path
+                bpy.ops.wm.obj_export(filepath='/home/cxh/mnt/cxh/Documents/assets/cmu_simulation/tshirt.obj', export_animation=True,start_frame=1,end_frame=250)
+                
+
+                
 
 
 if __name__ == "__main__":
