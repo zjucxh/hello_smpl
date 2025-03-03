@@ -26,13 +26,13 @@ def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"):
             if file.endswith(".npz") and not file.startswith('neutral'):
                 print(f' dirs : {dirs}')
                 print(f' root : {root}')
+                print(f' file : {file}')
+                out_dir = os.path.join('/home/cxh/mnt/cxh/Documents/dataset/CMU_simulation/',file[:-4])
+                print(f' out_dir : {out_dir}')
                 npz_file = os.path.join(root, file)
-                # Delect all objects
-                bpy.ops.object.select_all(action='SELECT')
-                bpy.ops.object.delete(use_global=True)
-                #bpy.ops.wm.read_factory_settings()
+                
                 # Comment out the following line to run blender in background mode to avoid memory leak
-                #bpy.ops.wm.read_homefile(filepath='assets/factory.blend')
+                bpy.ops.wm.read_homefile(filepath='assets/factory.blend')
 
                 #bpy.ops.object.delete()
                 print(f'loading {npz_file}')
@@ -76,8 +76,9 @@ def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"):
                 #bpy.context.scene.frame_set(1)
                 bpy.ops.object.select_all(action='DESELECT')
                 bpy.data.objects['tshirt'].select_set(True)
-                # TODO modify file path
-                #bpy.ops.wm.obj_export(filepath='/home/cxh/mnt/cxh/Documents/assets/cmu_simulation/tshirt.obj', export_animation=True,start_frame=1,end_frame=250)
+                # Export obj file sequences
+                # If export_selected_objects is False, avatar will be exported as well
+                bpy.ops.wm.obj_export(filepath=os.path.join(out_dir,'tshirt.obj'), export_animation=True,start_frame=1,end_frame=250,export_selected_objects=True,export_materials=False)
                 
 
                 
@@ -89,4 +90,5 @@ if __name__ == "__main__":
     #pose = np.load('assets/rest_pose.npy')
     #print(f'rest_pose: {pose - rest_pose}')
     #sample_cmu()
+    print(f' .....')
     load_cmu() 
