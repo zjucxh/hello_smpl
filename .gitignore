@@ -171,3 +171,7 @@ cython_debug/
 .pypirc
 
 assets/template.mtl
+
+assets/factory.blend2
+
+assets/template_origin.obj
