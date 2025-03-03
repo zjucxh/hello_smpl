@@ -8,13 +8,24 @@ def create_smpl():
     bpy.ops.scene.smplx_add_gender()
     bpy.ops.object.smplx_snap_ground_plane()
 
+# sample cmu data, copy all 0x_01.npz to cmu_mini folder
+def sample_cmu():
+    cmu_dir = "/home/cxh/mnt/cxh/Documents/dataset/CMU"
+    cmu_mini_dir = "/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"
+    for root, dirs, files in os.walk(cmu_dir):
+        for file in files:
+            if file.endswith(".npz") and '_01' in file:
+                npz_file = os.path.join(root, file)
+                print(f'copying {npz_file}')
+                os.system(f'cp {npz_file} {cmu_mini_dir}')
 
 
 def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"):
     for root, dirs, files in os.walk(cmu_dir):
         for file in files:
             if file.endswith(".npz") and not file.startswith('neutral'):
-
+                print(f' dirs : {dirs}')
+                print(f' root : {root}')
                 npz_file = os.path.join(root, file)
                 # Delect all objects
                 bpy.ops.object.select_all(action='SELECT')
@@ -66,7 +77,7 @@ def load_cmu(cmu_dir="/home/cxh/mnt/cxh/Documents/dataset/CMU_mini"):
                 bpy.ops.object.select_all(action='DESELECT')
                 bpy.data.objects['tshirt'].select_set(True)
                 # TODO modify file path
-                bpy.ops.wm.obj_export(filepath='/home/cxh/mnt/cxh/Documents/assets/cmu_simulation/tshirt.obj', export_animation=True,start_frame=1,end_frame=250)
+                #bpy.ops.wm.obj_export(filepath='/home/cxh/mnt/cxh/Documents/assets/cmu_simulation/tshirt.obj', export_animation=True,start_frame=1,end_frame=250)
                 
 
                 
@@ -77,4 +88,5 @@ if __name__ == "__main__":
     #np.save('assets/rest_pose.npy', rest_pose)
     #pose = np.load('assets/rest_pose.npy')
     #print(f'rest_pose: {pose - rest_pose}')
+    #sample_cmu()
     load_cmu() 
