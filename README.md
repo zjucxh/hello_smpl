@@ -1,6 +1,5 @@
-# hello_smpl
-SMPLX model demo
-
+# Cloth simulation for SMPLX 
+Given CMU and BMLRub SMPLX poses and garment template simulate the cloth deformation
 ## Note
 SMPLX pose dimension: (165,)
 Add animation : bpy.ops.object.smplx_add_animation(filepath="/home/cxh/mnt/cxh/Documents/dataset/CMU/06/06_03_stageii.npz")
@@ -21,4 +20,4 @@ run blender -P smpl_blender.py
 to run in background add -b option
 
 ## TODO
-Fit garment to SMPL standard model via blender or Marvelous Designer or CLO3D
+Generate dataset from simulated cloth and corresponding cmu poses
